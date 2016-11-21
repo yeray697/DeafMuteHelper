@@ -1,7 +1,10 @@
 package yrj.ayudasordomudo;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
@@ -17,136 +20,94 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+import yrj.ayudasordomudo.interfaces.IMvp;
+import yrj.ayudasordomudo.model.Idiomas;
+import yrj.ayudasordomudo.presenter.Main_Presenter;
+
+
+public class MainActivity extends AppCompatActivity implements IMvp.View{
     EditText etText;
-    Button btnToSpeech;
-    Button btnToText;
-    TextView tvTextRecived;
+    Button btTextToSpeech;
+    Button btSpeechToText;
+    TextView tvTextReceived;
     Spinner spOrigenLanguage;
-    Spinner spFinalLanguage;
-    TTS textToSpeech;
-    LanguageEnum defaultLanguage;
+    Main_Presenter presenter;
     protected static final int RESULT_SPEECH = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Guardando controles
+        initActivity();
+    }
+
+    private void initActivity() {
+        //Setting presenter
+        presenter = new Main_Presenter(this);
+        //Setting controls
         etText=(EditText)findViewById(R.id.etText);
-        btnToSpeech=(Button)findViewById(R.id.btnToSpeech);
-        btnToText=(Button)findViewById(R.id.btnToText);
-        tvTextRecived=(TextView)findViewById(R.id.tvTextRecived);
+        btTextToSpeech=(Button)findViewById(R.id.btTextToSpeech);
+        btSpeechToText=(Button)findViewById(R.id.btSpeechToText);
+        tvTextReceived=(TextView)findViewById(R.id.tvTextReceived);
         spOrigenLanguage=(Spinner) findViewById(R.id.spOrigenLanguage);
-        spFinalLanguage=(Spinner) findViewById(R.id.spOrigenLanguage);
 
-        ArrayAdapter<String> aAdapter = new ArrayAdapter<String>(this,R.layout.spinner_item, Idiomas.LANGUAGES);
+        //Setting adapter
+        ArrayAdapter<String> aAdapter = new ArrayAdapter<>(this,R.layout.spinner_item, Idiomas.LANGUAGES);
         spOrigenLanguage.setAdapter(aAdapter);
-        spFinalLanguage.setAdapter(aAdapter);
 
-        Locale defaultLocale = Locale.getDefault();
-        SetGetDefaultLanguage();
-        textToSpeech = new TTS(getApplicationContext(), defaultLanguage);
+        //Click events
+        btTextToSpeech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = etText.getText().toString().trim();
+                presenter.textToSpeech(text);
+            }
+        });
 
-        //Eventos
+        btSpeechToText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speechToText(presenter.getLanguage());
+            }
+        });
+
         spOrigenLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected = spOrigenLanguage.getSelectedItem().toString();
-                LanguageEnum languageEnum = null;
+                Locale languageEnum = null;
                 switch (selected) {
                     case Idiomas.ENGLISH_LANGUAGE:
-                        languageEnum = LanguageEnum.English;
+                        languageEnum = Idiomas.ENGLISH_LOCALE;
                         break;
                     case Idiomas.FRENCH_LANGUAGE:
-                        languageEnum = LanguageEnum.French;
+                        languageEnum = Idiomas.FRENCH_LOCALE;
                         break;
                     case Idiomas.GERMAN_LANGUAGE:
-                        languageEnum = LanguageEnum.German;
+                        languageEnum = Idiomas.GERMAN_LOCALE;
                         break;
                     case Idiomas.SPANISH_LANGUAGE:
-                        languageEnum = LanguageEnum.Spanish;
+                        languageEnum = Idiomas.SPANISH_LOCALE;
                         break;
                 }
-                textToSpeech.set_language(languageEnum);
+                if (languageEnum != null)
+                    presenter.setLanguage(languageEnum);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-
-
-        btnToSpeech.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String toSpeak = etText.getText().toString().trim();
-                if (toSpeak != null || toSpeak != ""){
-                    textToSpeech.Speak(toSpeak);
-                }
-            }
-        });
-
-        btnToText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String language = "";
-                LanguageEnum getLanguage = textToSpeech.get_language();
-                switch (getLanguage){
-                    case English:
-                        language = Idiomas.ENGLISH_ACRONYM;
-                        break;
-                    case Spanish:
-                        language = Idiomas.SPANISH_ACRONYM;
-                        break;
-                    case French:
-                        language = Idiomas.FRENCH_ACRONYM;
-                        break;
-                    case German:
-                        language = Idiomas.GERMAN_ACRONYM;
-                        break;
-                }
-                SpeechToText(language);
             }
         });
     }
-    /**
-     *  Obtiene el idioma que utiliza el sistema Android y marca el Spinner con ese idioma. Si es otro marca por defecto English
-     */
-    private void SetGetDefaultLanguage() {
 
-        String languageString;
-        switch (Locale.getDefault().getLanguage()){
-            case Idiomas.ENGLISH_ACRONYM:
-                defaultLanguage = LanguageEnum.English;
-                languageString = Idiomas.ENGLISH_LANGUAGE;
-                break;
-            case Idiomas.FRENCH_ACRONYM:
-                defaultLanguage = LanguageEnum.French;
-                languageString = Idiomas.FRENCH_LANGUAGE;
-                break;
-            case Idiomas.GERMAN_ACRONYM:
-                defaultLanguage = LanguageEnum.German;
-                languageString = Idiomas.GERMAN_LANGUAGE;
-                break;
-            case Idiomas.SPANISH_ACRONYM:
-                defaultLanguage = LanguageEnum.Spanish;
-                languageString = Idiomas.SPANISH_LANGUAGE;
-                break;
-            default:
-                defaultLanguage = LanguageEnum.English;
-                languageString = Idiomas.ENGLISH_LANGUAGE;
-                break;
-        }
-        spOrigenLanguage.setSelection(((ArrayAdapter<String>)spOrigenLanguage.getAdapter()).getPosition(languageString));
+    @Override
+    public void setMessageError(String messageError, int idView) {
+        Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
     }
 
-    public void SpeechToText(String language)
-    {
-        String languagePref = language;
-
+    public void speechToText(Locale language) {
+        String languagePref = language.toString();
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, languagePref);
@@ -155,16 +116,32 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             startActivityForResult(intent, RESULT_SPEECH);
-            tvTextRecived.setText("");
-        } catch (ActivityNotFoundException a) {
-            Toast.makeText(getApplicationContext(),
-                    "Your device doesn't support Speech to Text",
-                    Toast.LENGTH_SHORT).show();
+            tvTextReceived.setText("");
+        } catch(ActivityNotFoundException e) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.go_play_store_title)
+                    .setMessage(R.string.go_play_store_message)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String appPackageName = "com.google.android.googlequicksearchbox";
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            }
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+
         }
     }
-    /**
-     * Receiving speech input
-     * */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -173,31 +150,11 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> text = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    tvTextRecived.setText(text.get(0));
+                    tvTextReceived.setText(text.get(0));
                 }
                 break;
             }
         }
     }
-
-    /* Cuando tenga que añadir opciones, quitamos este comentario
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        switch (id){
-            case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-        }
-        return  super.onOptionsItemSelected(item);
-    }
-    */
 
 }

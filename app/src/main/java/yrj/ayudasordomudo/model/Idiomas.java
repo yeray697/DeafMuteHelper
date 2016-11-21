@@ -1,4 +1,4 @@
-package yrj.ayudasordomudo;
+package yrj.ayudasordomudo.model;
 
 import java.util.Locale;
 
@@ -24,7 +24,4 @@ public class Idiomas {
 
     public static final String[]LANGUAGES = new String[]{ENGLISH_LANGUAGE,FRENCH_LANGUAGE, GERMAN_LANGUAGE, SPANISH_LANGUAGE};
 
-}
-enum LanguageEnum {
-    Spanish, English, French, German
 }

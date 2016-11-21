@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="go_play_store_title">Necesitas descargar, actualizar y/o habilitar otro componente</string>
+    <string name="go_play_store_message">¿Deseas descargarlo?</string>
+</resources>
