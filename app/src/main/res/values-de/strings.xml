@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Assistent taub und stumm</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <!-- Controles -->
+    <string name="btnToSpeech_text">Text zu sprache</string>
+    <string name="etText_hint">Geben sie einen satz</string>
+    <string name="tvLanguage_text">Voice-Sprache</string>
+    <string name="btnToText_text">Erkennen sie die stimme</string>
+    <!-- Ajustes -->
+        <!-- Categoría General -->
+        <string name="pref_category_general_title">General</string>
+            <string name="pref_general_language_title">Sprache</string>
+            <string name="pref_general_language_summary">Sprache von der anwendung verwendet</string>
+</resources>

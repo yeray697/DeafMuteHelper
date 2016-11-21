@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Deaf and dumb assistant</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <!-- Controles -->
+    <string name="btnToSpeech_text">Text To Speech</string>
+    <string name="etText_hint">Enter a phrase</string>
+    <string name="tvLanguage_text">Voice language</string>
+    <string name="btnToText_text">Recognize the voice</string>
+    <!-- Ajustes -->
+        <!-- Categoría General -->
+        <string name="pref_category_general_title">General</string>
+            <string name="pref_general_language_title">Language</string>
+            <string name="pref_general_language_summary">Language used by the application</string>
+</resources>

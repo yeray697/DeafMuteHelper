@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Asistente de sordos y mudos</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="title_activity_settings">Ajustes</string>
+    <!-- Controles -->
+    <string name="btnToSpeech_text">Texto a voz</string>
+    <string name="etText_hint">Introduce una frase</string>
+    <string name="tvLanguage_text">Idioma de la voz</string>
+    <string name="btnToText_text">Reconocer la voz</string>
+    <!-- Ajustes -->
+        <!-- Categoría General -->
+        <string name="pref_category_general_title">General</string>
+            <string name="pref_general_language_title">Idioma</string>
+            <string name="pref_general_language_summary">Idioma que utilizará la aplicación</string>
+</resources>

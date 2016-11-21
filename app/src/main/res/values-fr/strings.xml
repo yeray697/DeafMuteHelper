@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Sourds et muets assistant</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <!-- Controles -->
+    <string name="btnToSpeech_text">Texte pour parler</string>
+    <string name="etText_hint">Entrez une phrase</string>
+    <string name="tvLanguage_text">Voix langue</string>
+    <string name="btnToText_text">Reconnaître la voix</string>
+    <!-- Ajustes -->
+        <!-- Categoría General -->
+        <string name="pref_category_general_title">Général</string>
+            <string name="pref_general_language_title">Langue</string>
+            <string name="pref_general_language_summary">Langue utilisée par l\'application</string>
+</resources>
