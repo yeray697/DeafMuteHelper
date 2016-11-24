@@ -75,6 +75,12 @@ public class Main_Presenter implements IMvp.Presenter {
         }
     }
 
+    public void shutdown(){
+        if(textToSpeech != null){
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+    }
 
     public Locale getLanguage() {
         return this.language;
@@ -82,25 +88,7 @@ public class Main_Presenter implements IMvp.Presenter {
 
     public void setLanguage(Locale language) {
         this.language = language;
-        switch (textToSpeech.isLanguageAvailable(this.language)) {
-            case TextToSpeech.LANG_AVAILABLE:
-                break;
-            case TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE:
-                Toast.makeText(context, "LANG_COUNTRY_VAR_AVAILABLE", Toast.LENGTH_SHORT).show();
-                break;
-            case TextToSpeech.LANG_MISSING_DATA:
-                Toast.makeText(context, "LANG_MISSING_DATA", Toast.LENGTH_SHORT).show();
-                break;
-            case TextToSpeech.LANG_COUNTRY_AVAILABLE:
-                Toast.makeText(context, "LANG_COUNTRY_AVAILABLE", Toast.LENGTH_SHORT).show();
-                break;
-            case TextToSpeech.LANG_NOT_SUPPORTED:
-                Toast.makeText(context, "LANG_NOT_SUPPORTED", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        textToSpeech.stop();
+        stopSpeaking();
         textToSpeech.setLanguage(this.language);
-            //textToSpeech.setLanguage(this.language);
     }
 }

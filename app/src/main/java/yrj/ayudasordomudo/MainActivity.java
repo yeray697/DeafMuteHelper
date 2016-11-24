@@ -157,4 +157,9 @@ public class MainActivity extends AppCompatActivity implements IMvp.View{
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.shutdown();
+    }
 }
