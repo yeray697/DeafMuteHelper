@@ -1,8 +1,4 @@
-package yrj.ayudasordomudo.interfaces;
-
-import java.util.Locale;
-
-import yrj.ayudasordomudo.model.Idiomas;
+package com.ncatz.yeray.deafmutehelper.interfaces;
 
 /**
  * Created by yeray697 on 21/11/16.

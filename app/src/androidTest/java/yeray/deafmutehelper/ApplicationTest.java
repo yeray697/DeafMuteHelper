@@ -1,4 +1,4 @@
-package yrj.ayudasordomudo;
+package com.ncatz.yeray.deafmutehelper;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

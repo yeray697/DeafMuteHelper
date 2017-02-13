@@ -1,4 +1,4 @@
-package yrj.ayudasordomudo;
+package com.ncatz.yeray.deafmutehelper;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -20,9 +20,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import yrj.ayudasordomudo.interfaces.IMvp;
-import yrj.ayudasordomudo.model.Idiomas;
-import yrj.ayudasordomudo.presenter.Main_Presenter;
+import com.ncatz.yeray.deafmutehelper.interfaces.IMvp;
+import com.ncatz.yeray.deafmutehelper.model.Idiomas;
+import com.ncatz.yeray.deafmutehelper.presenter.Main_Presenter;
+
+import yeray.deafmutehelper.R;
 
 
 public class MainActivity extends AppCompatActivity implements IMvp.View{
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements IMvp.View{
 
         setDefaultLanguage();
     }
+
     public void setDefaultLanguage() {
         String language = Locale.getDefault().getLanguage();
         Locale locale;
@@ -131,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements IMvp.View{
         spOrigenLanguage.setSelection(position);
         presenter.setLanguage(locale);
     }
+
     @Override
     public void setMessageError(String messageError, int idView) {
         Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
@@ -190,6 +194,11 @@ public class MainActivity extends AppCompatActivity implements IMvp.View{
     @Override
     protected void onStop() {
         super.onStop();
-        presenter.shutdown();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.stopSpeaking();
     }
 }

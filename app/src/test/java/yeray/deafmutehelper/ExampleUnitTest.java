@@ -1,4 +1,4 @@
-package yrj.ayudasordomudo;
+package yeray.deafmutehelper;
 
 import org.junit.Test;
 

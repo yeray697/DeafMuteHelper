@@ -1,4 +1,4 @@
-package yrj.ayudasordomudo.presenter;
+package com.ncatz.yeray.deafmutehelper.presenter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,8 +9,7 @@ import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Locale;
 
-import yrj.ayudasordomudo.interfaces.IMvp;
-import yrj.ayudasordomudo.model.Idiomas;
+import com.ncatz.yeray.deafmutehelper.interfaces.IMvp;
 
 /**
  * Created by yeray697 on 21/11/16.

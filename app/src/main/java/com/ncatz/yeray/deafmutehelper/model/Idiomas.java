@@ -1,4 +1,4 @@
-package yrj.ayudasordomudo.model;
+package com.ncatz.yeray.deafmutehelper.model;
 
 import java.util.Locale;
 
