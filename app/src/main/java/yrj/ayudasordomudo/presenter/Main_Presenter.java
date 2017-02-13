@@ -5,12 +5,12 @@ import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Locale;
 
 import yrj.ayudasordomudo.interfaces.IMvp;
+import yrj.ayudasordomudo.model.Idiomas;
 
 /**
  * Created by yeray697 on 21/11/16.
@@ -44,6 +44,7 @@ public class Main_Presenter implements IMvp.Presenter {
             //TODO Show error
         }
     }
+
 
     //Fuente: http://stackoverflow.com/questions/27968146/texttospeech-with-api-21/28000527#28000527
     public void speak(String toSpeak){

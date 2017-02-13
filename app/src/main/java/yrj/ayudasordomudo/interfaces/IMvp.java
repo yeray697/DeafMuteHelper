@@ -1,5 +1,9 @@
 package yrj.ayudasordomudo.interfaces;
 
+import java.util.Locale;
+
+import yrj.ayudasordomudo.model.Idiomas;
+
 /**
  * Created by yeray697 on 21/11/16.
  */

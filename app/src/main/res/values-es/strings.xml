@@ -8,8 +8,16 @@
     <string name="tvLanguage_text">Idioma de la voz</string>
     <string name="btnToText_text">Reconocer la voz</string>
     <!-- Ajustes -->
-        <!-- Categoría General -->
-        <string name="pref_category_general_title">General</string>
-            <string name="pref_general_language_title">Idioma</string>
-            <string name="pref_general_language_summary">Idioma que utilizará la aplicación</string>
+    <!-- Categoría General -->
+    <string name="pref_category_general_title">General</string>
+    <string name="pref_general_language_title">Idioma</string>
+    <string name="pref_general_language_summary">Idioma que utilizará la aplicación</string>
+    <string-array name="pref_languages">
+        <item>English</item>
+        <item>Español</item>
+        <item>Deutsch</item>
+        <item>Français</item>
+    </string-array>
+    <string name="go_play_store_title">Necesitas descargar, actualizar y/o habilitar otro componente</string>
+    <string name="go_play_store_message">¿Deseas descargarlo?</string>
 </resources>

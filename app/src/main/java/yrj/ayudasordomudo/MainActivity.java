@@ -99,8 +99,38 @@ public class MainActivity extends AppCompatActivity implements IMvp.View{
 
             }
         });
-    }
 
+        setDefaultLanguage();
+    }
+    public void setDefaultLanguage() {
+        String language = Locale.getDefault().getLanguage();
+        Locale locale;
+        int position;
+        switch (language){
+            case "en":
+                locale = Idiomas.ENGLISH_LOCALE;
+                position = 0;
+                break;
+            case "fr":
+                locale = Idiomas.FRENCH_LOCALE;
+                position = 1;
+                break;
+            case "de":
+                locale = Idiomas.GERMAN_LOCALE;
+                position = 2;
+                break;
+            case "es":
+                locale = Idiomas.SPANISH_LOCALE;
+                position = 3;
+                break;
+            default:
+                locale = Idiomas.ENGLISH_LOCALE;
+                position = 0;
+                break;
+        }
+        spOrigenLanguage.setSelection(position);
+        presenter.setLanguage(locale);
+    }
     @Override
     public void setMessageError(String messageError, int idView) {
         Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
